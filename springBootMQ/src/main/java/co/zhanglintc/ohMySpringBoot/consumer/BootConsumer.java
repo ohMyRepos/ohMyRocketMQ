@@ -1,5 +1,6 @@
 package co.zhanglintc.ohMySpringBoot.consumer;
 
+import co.zhanglintc.util.Config;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(topic = "TopicTest", consumerGroup = "consumer_group")
+@RocketMQMessageListener(topic = Config.TOPIC, consumerGroup = Config.CONSUMER_GROUP)
 public class BootConsumer implements RocketMQListener<MessageExt> {
     @Override
     public void onMessage(MessageExt message) {

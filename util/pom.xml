@@ -5,15 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>co.zhanglintc</groupId>
-  <artifactId>ohMyRocketMQ</artifactId>
+  <artifactId>util</artifactId>
   <version>1.0</version>
-  <packaging>pom</packaging>
-
-  <modules>
-    <module>nativeMQ</module>
-    <module>springBootMQ</module>
-    <module>util</module>
-  </modules>
+  <packaging>jar</packaging>
 
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
@@ -22,5 +16,10 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.28</version>
+    </dependency>
   </dependencies>
 </project>

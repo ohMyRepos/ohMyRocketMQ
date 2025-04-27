@@ -1,4 +1,4 @@
-package co.zhanglintc.common;
+package co.zhanglintc.util;
 
 /**
  * @Classname Config
@@ -9,4 +9,8 @@ package co.zhanglintc.common;
 public class Config {
     public static final String NAME_SERVER = "192.168.33.10:9876";
     public static final String TOPIC = "TopicTest";
+    public static final String PRODUCER_GROUP = "producer_group";
+    public static final String CONSUMER_GROUP = "consumer_group";
+    public static final String TAGA = "TagA";
+
 }

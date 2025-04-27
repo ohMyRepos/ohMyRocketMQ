@@ -1,6 +1,6 @@
 package co.zhanglintc.example;
 
-import co.zhanglintc.common.Config;
+import co.zhanglintc.util.Config;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
@@ -20,7 +20,7 @@ import java.util.List;
 public class Consumer {
     public static void main(String[] args) throws Exception {
         // 实例化一个消费者，指定消费者组名
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("consumer_group");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(Config.CONSUMER_GROUP);
         // 设置NameServer地址
         consumer.setNamesrvAddr(Config.NAME_SERVER);
         // 订阅Topic和Tag
