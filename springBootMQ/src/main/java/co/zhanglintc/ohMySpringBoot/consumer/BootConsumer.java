@@ -20,8 +20,11 @@ import org.springframework.stereotype.Component;
 @RocketMQMessageListener(topic = Config.TOPIC, consumerGroup = Config.CONSUMER_GROUP)
 public class BootConsumer implements RocketMQListener<MessageExt>, RocketMQPushConsumerLifecycleListener {
     @Override
-    public void onMessage(MessageExt message) {
-        log.info("Received message: {}", new String(message.getBody()));
+    public void onMessage(MessageExt msg) {
+        String topic = msg.getTopic();
+        String tags = msg.getTags();
+        String body = new String(msg.getBody());
+        log.info("Received message, topic: {}, tags: {}, body: {}", topic, tags, body);
     }
 
     @Override

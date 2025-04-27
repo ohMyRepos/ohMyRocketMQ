@@ -22,7 +22,7 @@ public class RocketMQController {
     @GetMapping("/send")
     public String sendMessage() {
         String message = RandomUtil.randomString(20);
-        bootProducer.sendMessage(Config.TOPIC, message);
+        bootProducer.sendMessageWithTag(Config.TOPIC, Config.TAGA, message);
         return message;
     }
 }

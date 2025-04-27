@@ -17,14 +17,14 @@ public class BootProducer {
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
 
-    public void sendMessage(String topic, String message) {
-        rocketMQTemplate.convertAndSend(topic, message);
-        log.info("Message sent: {}", message);
+    public void sendMessage(String topic, String body) {
+        rocketMQTemplate.convertAndSend(topic, body);
+        log.info("Sent message, topic: {}, body: {}", topic, body);
     }
 
-    public void sendMessageWithTag(String topic, String tag, String message) {
+    public void sendMessageWithTag(String topic, String tag, String body) {
         String destination = topic + ":" + tag; // 格式：topic:tag
-        rocketMQTemplate.convertAndSend(destination, message);
-        log.info("Message sent: {}", message);
+        rocketMQTemplate.convertAndSend(destination, body);
+        log.info("Sent message, topic: {}, tag: {}, body: {}", topic, tag, body);
     }
 }
