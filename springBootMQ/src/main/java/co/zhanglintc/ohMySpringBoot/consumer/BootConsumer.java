@@ -2,9 +2,11 @@ package co.zhanglintc.ohMySpringBoot.consumer;
 
 import co.zhanglintc.util.Config;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
+import org.apache.rocketmq.spring.core.RocketMQPushConsumerLifecycleListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,9 +18,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RocketMQMessageListener(topic = Config.TOPIC, consumerGroup = Config.CONSUMER_GROUP)
-public class BootConsumer implements RocketMQListener<MessageExt> {
+public class BootConsumer implements RocketMQListener<MessageExt>, RocketMQPushConsumerLifecycleListener {
     @Override
     public void onMessage(MessageExt message) {
         log.info("Received message: {}", new String(message.getBody()));
+    }
+
+    @Override
+    public void prepareStart(DefaultMQPushConsumer consumer) {
+        consumer.setNamesrvAddr(Config.NAME_SERVER);
     }
 }
