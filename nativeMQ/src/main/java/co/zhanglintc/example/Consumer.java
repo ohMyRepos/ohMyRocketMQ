@@ -7,6 +7,7 @@ import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 
 import java.util.List;
 
@@ -19,19 +20,19 @@ import java.util.List;
 @Slf4j
 public class Consumer {
     public static void main(String[] args) throws Exception {
-        // 实例化一个消费者，指定消费者组名
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(Config.CONSUMER_GROUP);
-        // 设置NameServer地址
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(Config.CONSUMER_GROUP_NATIVE);
         consumer.setNamesrvAddr(Config.NAME_SERVER);
-        // 订阅Topic和Tag
-        consumer.subscribe(Config.TOPIC, "*");
+        consumer.subscribe(Config.TOPIC, Config.TAG_NATIVE);
+        consumer.setMessageModel(MessageModel.BROADCASTING);
 
         // 注册回调函数，处理消息
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
                 for (MessageExt msg : msgs) {
-                    System.out.printf("Received message: %s%n", new String(msg.getBody()));
+                    String tag = msg.getTags();
+                    String body = new String(msg.getBody());
+                    log.info("Received message, tag: {}, body: {}", tag, body);
                 }
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
@@ -40,6 +41,6 @@ public class Consumer {
         // 启动消费者
         consumer.start();
 
-        System.out.println("Consumer Started.");
+        log.info("Consumer Started.");
     }
 }

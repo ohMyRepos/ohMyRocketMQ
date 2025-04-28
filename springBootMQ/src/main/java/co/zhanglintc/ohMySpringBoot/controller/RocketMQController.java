@@ -21,8 +21,14 @@ public class RocketMQController {
 
     @GetMapping("/send")
     public String sendMessage() {
-        String message = RandomUtil.randomString(20);
-        bootProducer.sendMessageWithTag(Config.TOPIC, Config.TAGA, message);
-        return message;
+        String tag = RandomUtil.randomInt(0, 2) == 0 ? Config.TAG_NATIVE : Config.TAG_BOOT;
+        String body = RandomUtil.randomString(20);
+        String msg = String.format("tag: %s, body: %s", tag, body);
+        bootProducer.sendMessageWithTag(
+                Config.TOPIC,
+                tag,
+                body
+        );
+        return msg;
     }
 }

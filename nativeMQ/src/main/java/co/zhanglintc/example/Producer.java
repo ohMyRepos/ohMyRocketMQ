@@ -25,7 +25,7 @@ public class Producer {
 
         for (int i = 0; i < 10; i++) {
             // 创建消息，指定Topic、Tag和消息体
-            Message msg = new Message(Config.TOPIC, Config.TAGA, ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+            Message msg = new Message(Config.TOPIC, Config.TAG_NATIVE, ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
             // 发送消息并获取发送结果
             SendResult sendResult = producer.send(msg);
             System.out.printf("%s%n", sendResult);

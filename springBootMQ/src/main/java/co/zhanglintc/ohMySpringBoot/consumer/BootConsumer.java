@@ -4,6 +4,7 @@ import co.zhanglintc.util.Config;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.spring.annotation.MessageModel;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.apache.rocketmq.spring.core.RocketMQPushConsumerLifecycleListener;
@@ -17,7 +18,11 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(topic = Config.TOPIC, consumerGroup = Config.CONSUMER_GROUP)
+@RocketMQMessageListener(topic = Config.TOPIC,
+        selectorExpression = Config.TAG_BOOT,
+        consumerGroup = Config.CONSUMER_GROUP_BOOT,
+        messageModel = MessageModel.BROADCASTING
+)
 public class BootConsumer implements RocketMQListener<MessageExt>, RocketMQPushConsumerLifecycleListener {
     @Override
     public void onMessage(MessageExt msg) {
