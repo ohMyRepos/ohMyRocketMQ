@@ -23,7 +23,7 @@ public class Consumer {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(Config.CONSUMER_GROUP_NATIVE);
         consumer.setNamesrvAddr(Config.NAME_SERVER);
         consumer.subscribe(Config.TOPIC, Config.TAG_NATIVE);
-        consumer.setMessageModel(MessageModel.BROADCASTING);
+        consumer.setMessageModel(MessageModel.CLUSTERING);
 
         // 注册回调函数，处理消息
         consumer.registerMessageListener(new MessageListenerConcurrently() {

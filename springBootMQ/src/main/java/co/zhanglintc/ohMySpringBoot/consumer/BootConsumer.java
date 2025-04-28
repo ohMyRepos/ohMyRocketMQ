@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @RocketMQMessageListener(topic = Config.TOPIC,
         selectorExpression = Config.TAG_BOOT,
         consumerGroup = Config.CONSUMER_GROUP_BOOT,
-        messageModel = MessageModel.BROADCASTING
+        messageModel = MessageModel.CLUSTERING
 )
 public class BootConsumer implements RocketMQListener<MessageExt>, RocketMQPushConsumerLifecycleListener {
     @Override
